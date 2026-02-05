@@ -11,7 +11,7 @@ public class App {
                 EntityManagerFactory emf = Persistence.createEntityManagerFactory("BibliothequePU");
                 EntityManager em = emf.createEntityManager();
         ) {
-
+        /* TP2
             em.getTransaction().begin();
 
             //Réaliser un « find » simple permettant d’extraire un livre en fonction de son identifiant et affichez son titre et son auteur
@@ -71,6 +71,9 @@ public class App {
                     .getResultList()
                     .forEach(livre -> System.out.println(livre.getTitre() + " by " + livre.getAuteur()));
             em.getTransaction().commit();
+        */
+
+
         }
     }
 }
