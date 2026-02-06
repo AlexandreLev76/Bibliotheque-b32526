@@ -3,6 +3,8 @@ package fr.epsi.b32526;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "livre")
@@ -12,10 +14,13 @@ public class Livre implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
-    @Column(name = "titre")
+    @Column(name = "titre", nullable = false, length = 255)
     private String titre;
-    @Column(name = "auteur")
+    @Column(name = "auteur", nullable = false, length = 50)
     private String auteur;
+
+    @ManyToMany(mappedBy = "livres", fetch = FetchType.LAZY)
+    private List<Emprunt> emprunts = new ArrayList<>();
 
     public Livre() {
     }
@@ -47,6 +52,14 @@ public class Livre implements Serializable {
 
     public void setAuteur(String auteur) {
         this.auteur = auteur;
+    }
+
+    public List<Emprunt> getEmprunts() {
+        return emprunts;
+    }
+
+    public void setEmprunts(List<Emprunt> emprunts) {
+        this.emprunts = emprunts;
     }
 
     @Override

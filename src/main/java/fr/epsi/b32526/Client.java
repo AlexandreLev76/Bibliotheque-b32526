@@ -3,19 +3,24 @@ package fr.epsi.b32526;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "client")
 public class Client implements Serializable {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
-    @Column(name = "nom")
+    @Column(name = "nom", nullable = false, length = 50)
     private String nom;
-    @Column(name = "prenom")
+    @Column(name = "prenom", nullable = false, length = 50)
     private String prenom;
+
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Emprunt> emprunts = new ArrayList<>();
 
     public Client() {
     }
@@ -47,6 +52,14 @@ public class Client implements Serializable {
 
     public void setPrenom(String prenom) {
         this.prenom = prenom;
+    }
+
+    public List<Emprunt> getEmprunts() {
+        return emprunts;
+    }
+
+    public void setEmprunts(List<Emprunt> emprunts) {
+        this.emprunts = emprunts;
     }
 
     @Override
