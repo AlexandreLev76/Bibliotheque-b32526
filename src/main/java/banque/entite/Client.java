@@ -4,6 +4,8 @@ package banque.entite;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "client")
@@ -31,6 +33,16 @@ public class Client implements Serializable {
             @AttributeOverride(name = "ville", column = @Column(name = "adresse_ville"))
     })
     private Adresse adresse;
+
+    @ManyToOne
+    @JoinColumn(name = "banque_id")
+    private Banque banque;
+
+    @ManyToMany
+    @JoinTable(name = "client_compte",
+            joinColumns = @JoinColumn(name = "client_id"),
+            inverseJoinColumns = @JoinColumn(name = "compte_id"))
+    private List<Compte> comptes = new ArrayList<>();
 
     public Client() {
     }
@@ -79,6 +91,22 @@ public class Client implements Serializable {
 
     public void setAdresse(Adresse adresse) {
         this.adresse = adresse;
+    }
+
+    public Banque getBanque() {
+        return banque;
+    }
+
+    public void setBanque(Banque banque) {
+        this.banque = banque;
+    }
+
+    public List<Compte> getComptes() {
+        return comptes;
+    }
+
+    public void setComptes(List<Compte> comptes) {
+        this.comptes = comptes;
     }
 
     @Override

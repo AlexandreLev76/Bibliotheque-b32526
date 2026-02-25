@@ -24,6 +24,10 @@ public class Operation implements Serializable {
     @Column(name = "motif")
     private String motif;
 
+    @ManyToOne
+    @JoinColumn(name = "compte_id")
+    private Compte compte;
+
     public Operation() {
     }
 
@@ -63,6 +67,14 @@ public class Operation implements Serializable {
 
     public void setMotif(String motif) {
         this.motif = motif;
+    }
+
+    public Compte getCompte() {
+        return compte;
+    }
+
+    public void setCompte(Compte compte) {
+        this.compte = compte;
     }
 
     @Override

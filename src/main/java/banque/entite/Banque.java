@@ -3,6 +3,8 @@ package banque.entite;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "banque")
@@ -15,6 +17,9 @@ public class Banque implements Serializable {
 
     @Column(name = "nom")
     private String nom;
+
+    @OneToMany(mappedBy = "banque")
+    private List<Client> clients = new ArrayList<>();
 
     public Banque() {
     }
@@ -37,6 +42,14 @@ public class Banque implements Serializable {
 
     public void setNom(String nom) {
         this.nom = nom;
+    }
+
+    public List<Client> getClients() {
+        return clients;
+    }
+
+    public void setClients(List<Client> clients) {
+        this.clients = clients;
     }
 
     @Override
